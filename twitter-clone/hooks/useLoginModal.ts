@@ -1,12 +1,12 @@
-import { switchState } from "@/store/reducers/loginModalSlice"
+import { switchLoginState } from "@/store/reducers/modalSlice"
 import { useAppDispatch, useAppSelector } from "./useRedux"
 
 export const useLoginModal = () => {
     const dispatch = useAppDispatch()
 
-    const active = useAppSelector(state => state.loginModalSlice.active)
-    const closeModal = () => dispatch(switchState(false))
-    const openModal = () => dispatch(switchState(true))
+    const active = useAppSelector(state => state.modalSlice.loginModalActive)
+    const closeModal = () => dispatch(switchLoginState(false))
+    const openModal = () => dispatch(switchLoginState(true))
 
     return {active, closeModal, openModal} as const
 }
