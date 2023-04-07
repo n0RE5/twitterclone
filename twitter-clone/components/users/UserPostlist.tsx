@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/hooks/useRedux';
 import { IPost, fetchedUser } from '@/types/Interfaces';
 import React from 'react';
-import PostItem from '../posts/PostItem';
+import UserPostItem from '../posts/UserPostItem';
 import PostForm from '../posts/PostForm';
 
 interface UserPostlistProps {
@@ -18,8 +18,8 @@ const UserPostlist: React.FC<UserPostlistProps> = ({ user, posts }) => {
                 <PostForm />
             }
             {posts.length
-                ? posts.map((post, index) => <PostItem key={index} user={user} post={post} /> )
-                : <span></span>
+                ? posts.map((post, index) => <UserPostItem key={index} user={user} post={post} /> )
+                : null
             }
         </>
     );
