@@ -1,16 +1,18 @@
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useAppSelector } from "@/hooks/useRedux";
+import { useTweetModal } from "@/hooks/useTweetModal";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { FaFeather } from "react-icons/fa";
 
 const SidebarTweet = () => {
     const loginModal = useLoginModal()
+    const tweerModal = useTweetModal()
     const isAuth = useAppSelector(state => state.userSlice.isAuth)
     
     const handleClick = useCallback(() => {
         if (isAuth) {
-            // todo add tweet modal
+            tweerModal.openModal()
         } else {
             loginModal.openModal()
         }
