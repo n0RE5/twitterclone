@@ -1,12 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import userSlice from "./reducers/userSlice";
-import loginModalSlice from "./reducers/loginModalSlice";
-import userModalSlice from "./reducers/userModalSlice";
+import modalSlice from "./reducers/modalSlice";
 
 const reducer = combineReducers({
     userSlice,
-    loginModalSlice,
-    userModalSlice
+    modalSlice
 })
 
 export default reducer
