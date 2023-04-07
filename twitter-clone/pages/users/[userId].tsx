@@ -8,9 +8,10 @@ import { getById } from "@/httpAPI/userAPI";
 import { InferGetServerSidePropsType } from "next";
 import { getUserPosts } from "@/httpAPI/postsAPI";
 import { useEffect } from "react";
+import { countFollowers, countFollowing } from "@/httpAPI/followAPI";
 
 
-const UserPage = ({ user, posts }: InferGetServerSidePropsType<typeof getServerSideProps> ) => {
+const UserPage = ({ user, usermeta, posts }: InferGetServerSidePropsType<typeof getServerSideProps> ) => {
     const router = useRouter()
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const UserPage = ({ user, posts }: InferGetServerSidePropsType<typeof getServerS
     return (
         <>
             <UserHeader user={user} />
-            <UserBio user={user} />
+            <UserBio usermeta={usermeta} user={user} />
             {posts.length
                 ? posts.map((post, index) => <PostItem key={index} user={user} post={post} /> )
                 : <span></span>
@@ -35,9 +36,13 @@ export async function getServerSideProps(context: any) {
     const userId = context.params.userId
     const user = await getById(userId)
     const posts = await getUserPosts(userId)
+    const followers = await countFollowers(userId)
+    const following = await countFollowing(userId)
+    const usermeta = {following, followers}
     return {
       props: {
         user,
+        usermeta,
         posts
       }, 
     }
