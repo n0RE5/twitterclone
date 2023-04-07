@@ -1,9 +1,23 @@
+import { useLoginModal } from "@/hooks/useLoginModal";
+import { useAppSelector } from "@/hooks/useRedux";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import { FaFeather } from "react-icons/fa";
 
 const SidebarTweet = () => {
+    const loginModal = useLoginModal()
+    const isAuth = useAppSelector(state => state.userSlice.isAuth)
+    
+    const handleClick = useCallback(() => {
+        if (isAuth) {
+
+        } else {
+            loginModal.openModal()
+        }
+    }, [isAuth])
+
     return (
-        <div>
+        <div onClick={handleClick}>
             <div className="
                 mt-6
                 lg:hidden
@@ -33,7 +47,7 @@ const SidebarTweet = () => {
                 transition
                 cursor-pointer
             ">
-                <div className="text-white text-xl text-center">Tweet</div>
+                <div className="text-white text-xl text-center">{isAuth ? "Tweet" : "Login"}</div>
             </div>
         </div>
     );
