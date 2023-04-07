@@ -4,11 +4,7 @@ import Input from '../UI/Input';
 import { useUserModal } from '@/hooks/useUserModal';
 import { editUserBio } from '@/httpAPI/userAPI';
 
-interface EditUserModalProps {
-    
-}
-
-const EditUserModal: React.FC<EditUserModalProps> = () => {
+const EditUserModal = () => {
     const userModal = useUserModal()
 
     const [secondname, setSecondname] = useState<string>('')
@@ -26,10 +22,10 @@ const EditUserModal: React.FC<EditUserModalProps> = () => {
             formData.append('files', bannerImg)
             formData.append('files', profileImg)
             const response = await editUserBio(formData)
-            userModal.closeModal()
         } catch (error) {
-            userModal.closeModal()
             console.log(error);
+        } finally { 
+            userModal.closeModal()
         }
     }
 
