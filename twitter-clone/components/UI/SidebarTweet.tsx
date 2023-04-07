@@ -10,7 +10,7 @@ const SidebarTweet = () => {
     
     const handleClick = useCallback(() => {
         if (isAuth) {
-
+            // todo add tweet modal
         } else {
             loginModal.openModal()
         }
