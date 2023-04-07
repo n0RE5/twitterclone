@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { BsHouseFill, } from 'react-icons/bs'
 import { BiLogOut } from "react-icons/bi";
 import { FaUser } from 'react-icons/fa'
@@ -8,30 +8,44 @@ import Logo from "./UI/Logo";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { userLogout } from "@/store/reducers/userSlice";
+import { useLoginModal } from "@/hooks/useLoginModal";
 
 const Sidebar = () => {
     const router = useRouter()
     const dispatch = useAppDispatch()
+    const loginModal = useLoginModal()
+
+    const user = useAppSelector(state => state.userSlice.user)
     const isAuth = useAppSelector(state => state.userSlice.isAuth)
 
-
-    const [sidebarItems] = useState([
+    const [publicItems] = useState([
         {
             title: 'Home',
             href: '/',
             icon: BsHouseFill,
         },
+    ])
+
+    const authItems = useMemo(() => [
         {
             title: 'Profile',
-            href: '/users/1',
+            href: `/users/${user.id}`,
             icon: FaUser
         },
-    ])
+    ], [user])
 
     const logout = () => {
         localStorage.removeItem('token')
         dispatch(userLogout())
-        //todo custom alert
+        alert("You've left your account")
+    }
+
+    const authRedirect = (path: string) => {
+        if(!isAuth) {
+            loginModal.openModal()
+            return
+        }
+        router.push(path)
     }
 
     return (
@@ -39,13 +53,11 @@ const Sidebar = () => {
              <div className="flex flex-col items-end">
                 <div className="space-y-2 lg:w-[230px]">
                     <Logo />
-                    {sidebarItems.map((sidebarItem, index) =>
-                        <SidebarItem 
-                            key={index} 
-                            onClick={() => router.push(sidebarItem.href)}
-                            title={sidebarItem.title} 
-                            icon={sidebarItem.icon} 
-                        />
+                    {publicItems.map((item, index) =>
+                        <SidebarItem key={index} onClick={() => router.push(item.href)} title={item.title} icon={item.icon} />
+                    )}
+                    {authItems.map((item, index) =>
+                        <SidebarItem key={index} onClick={() => authRedirect(item.href)} title={item.title} icon={item.icon} />
                     )}
                     {isAuth &&
                         <SidebarItem icon={BiLogOut} title="Logout" onClick={logout} />
