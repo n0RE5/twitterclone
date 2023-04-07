@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Avatar from "@/components/UI/Avatar";
 import UserHeader from "@/components/users/UserHeader";
 import UserBio from "@/components/users/UserBio";
-import PostItem from "@/components/posts/PostItem";
+import PostItem from "@/components/posts/UserPostItem";
 import { getById } from "@/httpAPI/userAPI";
 import { InferGetServerSidePropsType } from "next";
 import { getUserPosts } from "@/httpAPI/postsAPI";
