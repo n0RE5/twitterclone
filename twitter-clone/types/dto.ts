@@ -8,3 +8,8 @@ export interface userDTO {
 export interface CreateFollowDto {
     userId: number
 }
+
+export interface CreateCommentDto {
+    content: string
+    postId: number
+}
