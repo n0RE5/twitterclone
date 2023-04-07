@@ -51,6 +51,9 @@ export class SubscriptionsService {
 
     async countSubscriptions(userId: number) {
         const userSub = await this.subRepository.findOne({where: {userId}})
+        if (!userSub) {
+            return 0
+        }
         const subs = await this.subscriptionRepository.count({where: {subscriptionId: userSub.id}})
         return subs
     }

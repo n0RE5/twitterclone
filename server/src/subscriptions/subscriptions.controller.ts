@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'src/auth/auth-guard';
 import { CreateSubscriptionDto } from './dto/create-subscription.dto';
@@ -40,5 +40,15 @@ export class SubscriptionsController {
     @Get()
     getAll(@Req() req) {
         return this.subscriptionsService.getUserSubscriptions(req)
+    }
+
+    @Get('/followers/:userId')
+    countFollowers(@Param('userId') userId: number) {
+        return this.subscriptionsService.countSubscribers(userId)
+    }
+
+    @Get('/following/:userId')
+    countFollowing(@Param('userId') userId: number) {
+        return this.subscriptionsService.countSubscriptions(userId)
     }
 }
