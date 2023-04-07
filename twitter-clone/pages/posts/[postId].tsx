@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import CommentItem from "@/components/posts/CommentItem";
-import PostItem from "@/components/posts/PostItem";
+import CommentList from "@/components/posts/CommentList";
+import PostItem from "@/components/posts/UserPostItem";
 import { getComments } from "@/httpAPI/commentsAPI";
 import { getPost } from "@/httpAPI/postsAPI";
 import { getById } from "@/httpAPI/userAPI";
@@ -11,9 +12,7 @@ const PostPage = ({ user, post, comments }: InferGetServerSidePropsType<typeof g
         <>
             <Header showArrow title="Tweet" />
             <PostItem user={user} post={post} />
-            {comments.map(comment =>
-              <CommentItem comment={comment}/>
-            )}  
+            <CommentList comments={comments} />
         </>
     );
 };
