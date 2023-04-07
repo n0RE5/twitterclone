@@ -4,3 +4,7 @@ export interface userDTO {
     email: string
     password: string
 }
+
+export interface CreateFollowDto {
+    userId: number
+}
