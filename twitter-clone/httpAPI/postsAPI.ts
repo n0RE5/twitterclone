@@ -15,3 +15,8 @@ export const createPost = async (content: string): Promise<IPost> => {
     const post = await $authHost.post('posts', {content})
     return post.data
 }
+
+export const getAllPosts = async (): Promise<IPost[]> => {
+    const posts = await $host.get('posts')
+    return posts.data
+}
