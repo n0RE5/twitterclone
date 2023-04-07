@@ -1,3 +1,4 @@
+import { useFollow } from '@/hooks/useFollow';
 import { countFollowers, countFollowing } from '@/httpAPI/followAPI';
 import { fetchedUser } from '@/types/Interfaces';
 import React, { useState } from 'react';
@@ -12,10 +13,21 @@ interface UserBioProps {
 }
 
 const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
+    const [isFollowing, followFetching, follow] = useFollow(user.id)
+
     return (
         <div className='border-b-[1px] border-neutral-800 pb-4 px-4'>
             <div className='flex justify-end py-4'>
-                <button className='py-2 px-3 rounded-xl font-medium bg-white  hover:opacity-70 transition cursor-pointer'>
+                <button disabled={followFetching} onClick={follow} className={`
+                    py-2 
+                    px-3 
+                    rounded-xl 
+                    font-medium
+                    ${isFollowing ? "text-white bg-black border-2 border-white" : "bg-white text-black border-2 border-white"} 
+                    hover:opacity-70 
+                    transition 
+                    cursor-pointer 
+                `}>
                     Follow
                 </button>
             </div>
