@@ -1,12 +1,17 @@
+import { countFollowers, countFollowing } from '@/httpAPI/followAPI';
 import { fetchedUser } from '@/types/Interfaces';
-import React from 'react';
+import React, { useState } from 'react';
 import { BiCalendar } from 'react-icons/bi';
 
 interface UserBioProps {
-    user: fetchedUser
+    user: fetchedUser,
+    usermeta: {
+        followers: number
+        following: number
+    }
 }
 
-const UserBio: React.FC<UserBioProps> = ({user}) => {
+const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
     return (
         <div className='border-b-[1px] border-neutral-800 pb-4 px-4'>
             <div className='flex justify-end py-4'>
@@ -32,11 +37,11 @@ const UserBio: React.FC<UserBioProps> = ({user}) => {
             </div>
             <div className='flex flex-row mt-4 gap-6'>
                 <div className='flex items-center gap-1'>
-                    <span className='text-white font-semibold'>0</span>
+                    <span className='text-white font-semibold'>{usermeta.following}</span>
                     <span className='text-neutral-500 font-semibold'>Following</span>
                 </div>
                 <div className='flex items-center gap-1'>
-                    <span className='text-white font-semibold'>0</span>
+                    <span className='text-white font-semibold'>{usermeta.followers}</span>
                     <span className='text-neutral-500 font-semibold'>Followers</span>
                 </div>
             </div>
