@@ -5,7 +5,7 @@ import { Role } from 'src/roles/roles.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 import { Subscription } from 'src/subscriptions/subscriptions.model';
-import { Sequelize } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import { UserSubscriptions } from 'src/subscriptions/user-subscriptions.model';
 import { FilesService } from 'src/files/files.service';
 
@@ -63,6 +63,11 @@ export class UsersService {
                 'id', 'profileImg', 'bannerImg', 'username', 'secondname'
             ]
         })
+        return user
+    }
+
+    async searchUser(query: string) {
+        const user = await this.userRepository.findOne({where: {username: { [Op.like]: '%' + query + '%' }}, attributes: ['id']})
         return user
     }
 }

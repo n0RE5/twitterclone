@@ -38,4 +38,11 @@ export class UsersController {
     updateUser(@Body() dto: CreateUserDto, @UploadedFiles() files, @Req() req) {
         return this.userService.editUser(dto, files, req)
     }
+
+    @ApiOperation({summary: "Search User"})
+    @ApiResponse({status: 200, type: User})
+    @Get('/search/:query')
+    search(@Param('query') query: string) {
+        return this.userService.searchUser(query)
+    }
 }
