@@ -16,4 +16,9 @@ export class CommentsService {
         const comments = await this.commentsRepository.findAll({where: {postId}})
         return comments
     }
+
+    async countAll(postId: number) {
+        const count = await this.commentsRepository.count({where: {postId}})
+        return count
+    }
 }

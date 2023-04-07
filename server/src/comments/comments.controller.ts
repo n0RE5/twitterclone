@@ -24,4 +24,9 @@ export class CommentsController {
     get(@Param('postId') postId: number) {
         return this.commentService.getAll(postId)
     }
+
+    @Get('/count/:postId')
+    count(@Param('postId') postId: number) {
+        return this.commentService.countAll(postId)
+    }
 }
