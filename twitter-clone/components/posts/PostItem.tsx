@@ -1,23 +1,31 @@
-import React, { useCallback } from 'react';
-import Avatar from '../UI/Avatar';
-import { AiOutlineMessage, AiOutlineHeart } from 'react-icons/ai'
-import { useRouter } from 'next/router';
 import { IPost, fetchedUser } from '@/types/Interfaces';
+import React, { useCallback, useMemo, useState } from 'react';
+import { AiOutlineHeart, AiOutlineMessage } from 'react-icons/ai';
+import Avatar from '../UI/Avatar';
+import { useRouter } from 'next/router';
 import { useLikes } from '@/hooks/useLikes';
+import { fetchedUserPlaceholder } from '@/utils/placeholder';
+import { getById } from '@/httpAPI/userAPI';
 
 interface PostItemProps {
-    user: fetchedUser,
     post: IPost
 }
 
-const PostItem: React.FC<PostItemProps> = ({user, post}) => {
+const PostItem: React.FC<PostItemProps> = ({ post }) => {
     const router = useRouter()
+
     const [isLiked, likes, like] = useLikes(post.id)
+    const [user, setUser] = useState<fetchedUser>(fetchedUserPlaceholder)
+
+    const fetchUser = useMemo(async () => {
+        const response = await getById(post.userId)
+        setUser(response)
+    }, [post])
 
     const gotoUserpage = useCallback((e: React.MouseEvent) => {
         e.stopPropagation()
         router.push(`/users/${user.id}`)
-    }, [router])
+    }, [router, user])
 
     const likePost = (e: React.MouseEvent) => {
         e.stopPropagation()
