@@ -28,7 +28,7 @@ export class PostsController {
     @ApiOperation({summary: "Get All Posts"})
     @ApiResponse({status: 200, type: [_Post] })
     @Get()
-    getAll(@Param('id') id: number) {
+    getAll() {
         return this.postsService.getAll()
     }
 
