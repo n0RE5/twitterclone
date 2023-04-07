@@ -9,6 +9,8 @@ import { InferGetServerSidePropsType } from "next";
 import { getUserPosts } from "@/httpAPI/postsAPI";
 import { useEffect } from "react";
 import { countFollowers, countFollowing } from "@/httpAPI/followAPI";
+import { useAppSelector } from "@/hooks/useRedux";
+import UserPostlist from "@/components/users/UserPostlist";
 
 
 const UserPage = ({ user, usermeta, posts }: InferGetServerSidePropsType<typeof getServerSideProps> ) => {
@@ -24,10 +26,7 @@ const UserPage = ({ user, usermeta, posts }: InferGetServerSidePropsType<typeof 
         <>
             <UserHeader user={user} />
             <UserBio usermeta={usermeta} user={user} />
-            {posts.length
-                ? posts.map((post, index) => <PostItem key={index} user={user} post={post} /> )
-                : <span></span>
-            }
+            <UserPostlist user={user} posts={posts} />
         </>
     );
 };
