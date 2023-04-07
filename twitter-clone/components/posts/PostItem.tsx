@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useLikes } from '@/hooks/useLikes';
 import { fetchedUserPlaceholder } from '@/utils/placeholder';
 import { getById } from '@/httpAPI/userAPI';
+import { useComments } from '@/hooks/useComments';
 
 interface PostItemProps {
     post: IPost
@@ -15,6 +16,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     const router = useRouter()
 
     const [isLiked, likes, like] = useLikes(post.id)
+    const [comments] = useComments(post.id)
     const [user, setUser] = useState<fetchedUser>(fetchedUserPlaceholder)
 
     const fetchUser = useMemo(async () => {
@@ -47,7 +49,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
                     <div className='mt-3 flex flex-row items-center gap-10'>
                         <div className='flex flex-row items-center gap-2 text-neutral-500 font-semibold cursor-pointer transition hover:text-sky-500'>
                             <AiOutlineMessage size={20} />
-                            <span>0</span>
+                            <span>{comments}</span>
                         </div>
                         <div onClick={likePost} className={`flex flex-row items-center gap-2 ${isLiked ? 'text-sky-500' : 'text-neutral-500'} font-semibold cursor-pointer transition hover:text-sky-500`}>
                             <AiOutlineHeart size={20} />
