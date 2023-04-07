@@ -1,9 +1,24 @@
 import Header from "@/components/Header";
+import PostItem from "@/components/posts/PostItem";
+import { getAllPosts } from "@/httpAPI/postsAPI";
+import { InferGetServerSidePropsType } from "next";
 
-export default function Home() {
+export default function Home({posts}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <div className="text-3xl text-sky-50 w-ma">
-      <Header title="123"/>
-    </div>
+    <>
+      <Header title="Home"/>
+      {posts.map(post =>
+        <PostItem post={post} />
+      )}
+    </>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const posts = await getAllPosts()
+  return {
+    props: {
+      posts
+    }, 
+  }
 }
