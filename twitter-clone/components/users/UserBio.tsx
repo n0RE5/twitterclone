@@ -1,4 +1,6 @@
 import { useFollow } from '@/hooks/useFollow';
+import { useAppSelector } from '@/hooks/useRedux';
+import { useUserModal } from '@/hooks/useUserModal';
 import { countFollowers, countFollowing } from '@/httpAPI/followAPI';
 import { fetchedUser } from '@/types/Interfaces';
 import React, { useState } from 'react';
@@ -14,11 +16,14 @@ interface UserBioProps {
 
 const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
     const [isFollowing, followFetching, follow] = useFollow(user.id)
+    const userModal = useUserModal()
+
+    const _user = useAppSelector(state => state.userSlice.user)
 
     return (
         <div className='border-b-[1px] border-neutral-800 pb-4 px-4'>
             <div className='flex justify-end py-4'>
-                <button disabled={followFetching} onClick={follow} className={`
+                <button disabled={followFetching} onClick={_user.id === user.id ? userModal.openModal : follow} className={`
                     py-2 
                     px-3 
                     rounded-xl 
@@ -28,7 +33,7 @@ const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
                     transition 
                     cursor-pointer 
                 `}>
-                    Follow
+                    {_user.id === user.id ? "Edit" : "Follow"}
                 </button>
             </div>
             <div className='mt-8'>
