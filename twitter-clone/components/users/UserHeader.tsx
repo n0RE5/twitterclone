@@ -13,10 +13,10 @@ const UserHeader: React.FC<UserHeaderProps> = ({ user }) => {
         <div className="relative">
             <Header showArrow title={user.username} />
             <div className="bg-neutral-700 h-44 relative">
-                <Image src={`/${process.env.SERVER_URL + user.profileImg}`} fill alt="" style={{objectFit: 'cover'}} />
+                <Image src={process.env.SERVER_URL + user.profileImg} fill alt="" style={{objectFit: 'cover'}} />
             </div>
             <div className="absolute -bottom-16 left-4">
-                <Avatar border large src={`/${process.env.SERVER_URL + user.profileImg}`}/>
+                <Avatar border large src={process.env.SERVER_URL + user.profileImg}/>
             </div>
         </div>
     );
