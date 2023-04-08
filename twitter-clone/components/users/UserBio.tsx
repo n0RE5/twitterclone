@@ -3,8 +3,9 @@ import { useAppSelector } from '@/hooks/useRedux';
 import { useUserModal } from '@/hooks/useUserModal';
 import { countFollowers, countFollowing } from '@/httpAPI/followAPI';
 import { fetchedUser } from '@/types/Interfaces';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { BiCalendar } from 'react-icons/bi';
+import { format } from 'date-fns'
 
 interface UserBioProps {
     user: fetchedUser,
@@ -17,6 +18,11 @@ interface UserBioProps {
 const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
     const [isFollowing, followFetching, follow] = useFollow(user.id)
     const userModal = useUserModal()
+
+    const createdAt = useMemo(() => {
+        if(!user.createdAt) return null
+        return format(new Date(user.createdAt), 'MMMM yyyy')
+    }, [user])
 
     const _user = useAppSelector(state => state.userSlice.user)
 
@@ -49,7 +55,7 @@ const UserBio: React.FC<UserBioProps> = ({user, usermeta}) => {
             <div className='flex flex-col mt-4'>
                 <div className='flex flex-row items-center gap-2 mt-4 text-neutral-500 font-semibold'>
                     <BiCalendar size={24} />
-                    <span>Joined March 24</span>
+                    <span>Joined {createdAt}</span>
                 </div>
             </div>
             <div className='flex flex-row mt-4 gap-6'>
