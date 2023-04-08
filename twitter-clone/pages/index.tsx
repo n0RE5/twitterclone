@@ -7,8 +7,8 @@ export default function Home({posts}: InferGetServerSidePropsType<typeof getServ
   return (
     <>
       <Header title="Home"/>
-      {posts.map(post =>
-        <PostItem post={post} />
+      {posts.map((post, index) =>
+        <PostItem key={index} post={post} />
       )}
     </>
   )

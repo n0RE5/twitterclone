@@ -26,7 +26,7 @@ const FollowBar = () => {
                 <span className="text-white text-xl font-semibold">Your followings</span>
                 <div className="flex flex-col gap-6 mt-4">
                     {followers.map(follower =>
-                        <div className="flex flex-row gap-2 items-center">
+                        <div key={follower.id} className="flex flex-row gap-2 items-center">
                             <Avatar src={process.env.SERVER_URL + follower.profileImg} />
                             <div className="flex flex-col">
                                 <span onClick={() => gotoUserpage(follower.id)} className="text-white font-semibold hover:underline">{follower.username}</span>
