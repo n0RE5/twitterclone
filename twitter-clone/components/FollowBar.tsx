@@ -29,8 +29,8 @@ const FollowBar = () => {
                         <div key={follower.id} className="flex flex-row gap-2 items-center">
                             <Avatar src={process.env.SERVER_URL + follower.profileImg} />
                             <div className="flex flex-col">
-                                <span onClick={() => gotoUserpage(follower.id)} className="text-white font-semibold hover:underline">{follower.username}</span>
-                                <span onClick={() => gotoUserpage(follower.id)} className="text-neutral-500 font-semibold hover:underline">@{follower.secondname}</span>
+                                <span onClick={() => gotoUserpage(follower.id)} className="text-white font-semibold hover:underline cursor-pointer">{follower.username}</span>
+                                <span onClick={() => gotoUserpage(follower.id)} className="text-neutral-500 font-semibold hover:underline cursor-pointer">@{follower.secondname}</span>
                             </div>
                         </div>
                     )}
