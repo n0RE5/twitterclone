@@ -37,7 +37,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     return (
         <div onClick={() => router.push(`/posts/${post.id}`)} className='border-b-[1px] border-neutral-800 p-5 cursor-pointer hover:bg-neutral-900 transition'>
             <div className='flex flex-row items-start gap-3'>
-                <Avatar src={process.env.SERVER_URL + user.profileImg} />
+                <div>
+                    <Avatar src={process.env.SERVER_URL + user.profileImg} />
+                </div>
                 <div>
                     <div className='flex flex-row gap-2 items-center'>
                         <span onClick={gotoUserpage} className='text-white font-semibold hover:underline'>{user.username}</span>
