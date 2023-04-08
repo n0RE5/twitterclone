@@ -3,5 +3,6 @@ export const fetchedUserPlaceholder = {
     username: '',
     secondname: '',
     profileImg: 'string',
-    bannerImg: 'string'
+    bannerImg: 'string',
+    createdAt: '2023-04-06T16:17:00.005Z'
 }

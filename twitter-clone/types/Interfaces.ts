@@ -4,6 +4,7 @@ export interface fetchedUser {
     secondname: string
     profileImg: string
     bannerImg: string
+    createdAt: string
 }
 
 export interface IUser {

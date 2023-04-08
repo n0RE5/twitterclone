@@ -60,7 +60,7 @@ export class UsersService {
         const user = await this.userRepository.findOne({
             where: {id},
             attributes: [
-                'id', 'profileImg', 'bannerImg', 'username', 'secondname'
+                'id', 'profileImg', 'bannerImg', 'username', 'secondname', 'createdAt'
             ]
         })
         return user
